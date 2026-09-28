@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "swmcp": {
+      "type": "stdio",
+      "command": "java",
+      "args": [
+        "-jar",
+        "${workspaceFolder}/target/swmcp-0.0.1-SNAPSHOT.jar"
+      ]
+    }
+  }
+}

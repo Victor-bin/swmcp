@@ -1,0 +1,22 @@
+# Maven build output
+/target/
+
+# Java artifacts
+*.class
+hs_err_pid*
+replay_pid*
+
+# Logs
+*.log
+
+# IDE files
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.factorypath
+
+# Operating system files
+.DS_Store
+Thumbs.db
