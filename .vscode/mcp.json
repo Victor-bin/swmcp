@@ -1,12 +1,8 @@
 {
   "servers": {
     "swmcp": {
-      "type": "stdio",
-      "command": "java",
-      "args": [
-        "-jar",
-        "${workspaceFolder}/target/swmcp-0.0.1-SNAPSHOT.jar"
-      ]
+      "type": "http",
+      "url": "http://localhost:8080/mcp"
     }
   }
 }

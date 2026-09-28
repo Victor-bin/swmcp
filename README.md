@@ -1,6 +1,6 @@
 # SWMCP
 
-A local MCP server built with Java 25 and Spring Boot 4.1.1 that queries [swapi.info](https://swapi.info/). It uses Spring AI MCP 2.0.1 and the STDIO transport. No API key is required.
+An MCP server built with Java 25 and Spring Boot 4.1.1 that queries [swapi.info](https://swapi.info/). It uses Spring AI MCP 2.0.1 and the Streamable HTTP transport. No API key is required.
 
 ## Tools
 
@@ -26,33 +26,26 @@ mvn package
 java -jar target/swmcp-0.0.1-SNAPSHOT.jar
 ```
 
-The last command waits for MCP messages over STDIO. To use the server with an MCP client, configure the client as shown below instead of launching it manually.
+The server listens on port `8080` and exposes the MCP endpoint at `http://localhost:8080/mcp`.
 
 ## Client configuration
 
-The VS Code configuration is in `.vscode/mcp.json`. After building the project, select **Start** in the MCP servers view.
+The VS Code configuration is in `.vscode/mcp.json`. Start the application and then select **Start** in the MCP servers view. Other Streamable HTTP clients can connect to `http://localhost:8080/mcp`.
 
-For Claude Desktop, add the following to `claude_desktop_config.json` and replace the example with the absolute path to the generated JAR:
+## Docker
 
-```json
-{
-  "mcpServers": {
-    "swmcp": {
-      "command": "java",
-      "args": [
-        "-jar",
-        "/absolute/path/to/project/target/swmcp-0.0.1-SNAPSHOT.jar"
-      ]
-    }
-  }
-}
+Build and run the image:
+
+```sh
+docker build -t swmcp .
+docker run --rm -p 8080:8080 swmcp
 ```
+
+The container runs as an unprivileged user. Set a different SWAPI endpoint with `-e SWAPI_BASE_URL=https://example.test`.
 
 ## Configuration
 
-Override the SWAPI base URL with the `swapi.base-url` property or the `SWAPI_BASE_URL` environment variable. The HTTP client uses a 5-second connection timeout and a 10-second read timeout.
-
-Spring properties disable the web server, startup banner, and console logging so they cannot interfere with the STDIO protocol.
+Override the listening port with `PORT`. Override the SWAPI base URL with the `swapi.base-url` property or the `SWAPI_BASE_URL` environment variable. The HTTP client uses a 5-second connection timeout and a 10-second read timeout.
 
 ## License
 
